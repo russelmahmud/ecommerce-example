@@ -1,0 +1,38 @@
+[
+{
+    "model": "product.product",
+    "pk": 1,
+    "fields": {
+        "name": "iPad",
+        "quantity": 5,
+        "unit_price": "350.00"
+    }
+},
+{
+    "model": "product.product",
+    "pk": 2,
+    "fields": {
+        "name": "iPhone",
+        "quantity": 10,
+        "unit_price": "750.00"
+    }
+},
+{
+    "model": "product.product",
+    "pk": 3,
+    "fields": {
+        "name": "iMac",
+        "quantity": 6,
+        "unit_price": "1200.00"
+    }
+},
+{
+    "model": "product.product",
+    "pk": 4,
+    "fields": {
+        "name": "iPod",
+        "quantity": 8,
+        "unit_price": "300.00"
+    }
+}
+]
