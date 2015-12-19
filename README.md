@@ -11,6 +11,9 @@ source `env/bin/activate`  # On Windows use `env\Scripts\activate`
 ## Set Up
   `$ ./setup.sh`
   
+## Run Tests
+   `$ ./manage.py test`
+  
 ## Run server
   `$ ./manage.py runserver`
   
