@@ -27,3 +27,17 @@ source `env/bin/activate`  # On Windows use `env\Scripts\activate`
   admin panel(admin:adminadmin): **http://localhost:8000/admin/**
 
 #### [API Documentation](https://github.com/russelmahmud/ecommerce-example/wiki)
+
+
+## Load Test
+[Locust](http://docs.locust.io/en/latest/what-is-locust.html) tool has been used for load testing.
+We have added only 2 examples to show how we can write and test locally. Locust can be also used in
+production and distributed environment. 
+
+To run the Locust server:
+
+**`$ locust --host=http://localhost:8000`**
+
+**Open up Locust’s web interface(http://localhost:8089/)**
+
+![alt tag](http://docs.locust.io/en/latest/_images/webui-splash-screenshot.png)
