@@ -2,8 +2,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth import login, logout
 from rest_framework import viewsets
 from rest_framework.views import APIView
-from rest_framework.permissions import AllowAny
-from rest_framework.authentication import BasicAuthentication
+from rest_framework.authentication import BasicAuthentication, SessionAuthentication
 from rest_framework.response import Response
 
 from .serializers import UserSerializer
@@ -11,20 +10,15 @@ from .permissions import IsStaffOrTargetUser
 
 
 class UserView(viewsets.ModelViewSet):
-    queryset = User.objects.all()
     serializer_class = UserSerializer
+    authentication_classes = (BasicAuthentication, SessionAuthentication, )
+    permission_classes = (IsStaffOrTargetUser, )
 
-    def get_permissions(self):
-        # allow non-authenticated user to create via POST
-        return (AllowAny() if self.request.method == 'POST'
-                else IsStaffOrTargetUser()),
+    def get_queryset(self):
+        if self.request.user.is_staff:
+            return User.objects.all()
 
-    def list(self, request, *args, **kwargs):
-        if request.user.is_staff:
-            return super(UserView, self).list(request, *args, **kwargs)
-
-        serializer = self.get_serializer(request.user)
-        return Response(serializer.data)
+        return User.objects.filter(username=self.request.user.username)
 
     def partial_update(self, request, *args, **kwargs):
         instance = self.get_object()

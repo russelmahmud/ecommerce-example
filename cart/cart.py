@@ -90,6 +90,8 @@ class Cart(object):
                 item.quantity = quantity
                 item.save()
 
+        return item
+
     def count(self):
         result = 0
         for item in self.cart.items.all():

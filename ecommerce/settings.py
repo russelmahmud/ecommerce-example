@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'product',
     'cart',
+    'account'
 ]
 
 MIDDLEWARE_CLASSES = [
@@ -124,7 +125,10 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 REST_FRAMEWORK = {
-    'PAGE_SIZE': 10
+    'PAGE_SIZE': 10,
+    'DEFAULT_RENDERER_CLASSES': (
+        'rest_framework.renderers.JSONRenderer',
+    ),
 }
 
 CART_SESSION_KEY = 'CART-ID'

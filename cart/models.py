@@ -68,3 +68,11 @@ class CartItem(models.Model):
         """
         self.total_price = self.unit_price * self.quantity
         super(CartItem, self).save(*args, **kwargs)
+
+    def to_json(self):
+        return {
+            'product': self.product.id,
+            'quantity': self.quantity,
+            'unit_price': self.unit_price,
+            'total_price': self.total_price
+        }

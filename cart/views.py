@@ -12,7 +12,7 @@ class CartView(APIView):
     """
     API endpoint that allows add, update or remove product from cart.
     """
-    authentication_classes = (SessionAuthentication, BasicAuthentication)
+    authentication_classes = (BasicAuthentication, SessionAuthentication, )
     permission_classes = (IsAuthenticated, )
 
     def get(self, request):
@@ -21,11 +21,12 @@ class CartView(APIView):
 
     def post(self, request):
         cart = Cart(request)
-        serializer = CartItemSerializer(data=request.POST)
+        serializer = CartItemSerializer(data=request.data)
         if serializer.is_valid():
             try:
-                cart.add(serializer.data['product'], serializer.data['quantity'])
-                return Response(serializer.data)
+                item = cart.add(serializer.data['product'], serializer.data['quantity'])
+                serializer = CartItemSerializer(item.to_json())
+                return Response(serializer.data, status=status.HTTP_201_CREATED)
             except ItemDoesNotExist:
                 return Response({'message': 'Product does not exist'}, status=status.HTTP_400_BAD_REQUEST)
 
@@ -33,11 +34,12 @@ class CartView(APIView):
 
     def put(self, request):
         cart = Cart(request)
-        serializer = CartItemSerializer(data=request.POST)
+        serializer = CartItemSerializer(data=request.data)
         if serializer.is_valid():
             try:
-                cart.update(serializer.data['product'], serializer.data['quantity'])
-                return Response(serializer.data)
+                item = cart.update(serializer.data['product'], serializer.data['quantity'])
+                serializer = CartItemSerializer(item.to_json())
+                return Response(serializer.data, status=status.HTTP_200_OK)
             except ItemDoesNotExist:
                 return Response({'message': 'Product does not exist'},
                                 status=status.HTTP_400_BAD_REQUEST)
@@ -47,9 +49,9 @@ class CartView(APIView):
     def delete(self, request):
         cart = Cart(request)
         try:
-            cart.remove(request.POST['product'])
+            cart.remove(request.data['product'])
         except KeyError:
-            return Response({'message': 'Product is required.'},  status=status.HTTP_400_BAD_REQUEST)
+            return Response({'message': 'Product is required'},  status=status.HTTP_400_BAD_REQUEST)
         except ItemDoesNotExist:
             return Response({'message': 'Product does not exist'},  status=status.HTTP_400_BAD_REQUEST)
 
