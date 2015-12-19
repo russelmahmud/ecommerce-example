@@ -13,7 +13,12 @@ source `env/bin/activate`  # On Windows use `env\Scripts\activate`
   
 ## Run Tests
    `$ ./manage.py test`
-  
+   
+## Test Coverage
+   `$ coverage run --source='.' manage.py test`
+   
+   `$ coverage report`
+
 ## Run server
   `$ ./manage.py runserver`
   
