@@ -19,5 +19,6 @@ source `env/bin/activate`  # On Windows use `env\Scripts\activate`
   
   server running at **http://localhost:8000**
   
-#### [Documentation](https://github.com/russelmahmud/ecommerce-example/wiki)
+  admin panel(admin:adminadmin): **http://localhost:8000/admin/**
 
+#### [API Documentation](https://github.com/russelmahmud/ecommerce-example/wiki)
